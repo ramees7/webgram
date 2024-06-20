@@ -1,30 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Offcanvas } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
+import { BASE_URL } from '../Services/baseUrl';
+import nonUserDp from '../Assets/profile-non-user.jpg'
 
 function Nav() {
-    const [showProfile, setShowProfile] = useState(false);
-    const [showMenu, setShowMenu] = useState(false);
+    const [showProfile, setShowProfile] = useState(false)
+    const [showMenu, setShowMenu] = useState(false)
 
-    const handleCloseProfile = () => setShowProfile(false);
-    const handleShowProfile = () => setShowProfile(true);
-    const handleCloseMenu = () => setShowMenu(false);
-    const handleShowMenu = () => setShowMenu(true);
+    const [currentUser, setCurrentUser] = useState("")
+
+    useEffect(() => {
+        setCurrentUser(JSON.parse(sessionStorage.getItem("Existing User")))
+    }, [])
+
+    const handleCloseProfile = () => setShowProfile(false)
+    const handleShowProfile = () => setShowProfile(true)
+    const handleCloseMenu = () => setShowMenu(false)
+    const handleShowMenu = () => setShowMenu(true)
     return (
         <div className='' >
             <nav className="navbar fixed-top " style={{ background: "#fff" }}>
                 <div className="container" >
                     <a className="navbar-brand fw-bold" style={{ fontSize: "25px" }}>WebGram</a>
-                    <div style={{ width: "35%" }} className=' d-none d-md-block d-lg-block'>
+                    {/* <div style={{ width: "35%" }} className=' d-none d-md-block d-lg-block'>
                         <form className="d-flex " >
                             <input className="form-control me-2 border-0" style={{ backgroundColor: "#f0f0f0" }} type="search" placeholder="Search" aria-label="Search" />
                         </form>
-                    </div>
+                    </div> */}
                     <div className='d-flex align-items-center'>
                         <Link to={'/register'}><button style={{ border: "none", backgroundColor: "#6b4ce6", borderRadius: "15px", color: "#fff" }} className='py-2 px-4 mx-2'>Create</button></Link>
-                        <Link to={'/editprofile'} className='d-none d-md-block'><img src="https://social-media-noko.vercel.app/images/profile-1.jpg" alt="" style={{ width: "45px", height: "45px", borderRadius: "50%" }} /></Link>
+                        <Link to={'/editprofile'} className='d-none d-md-block'><img src={currentUser ? `${BASE_URL}/upload/${currentUser.image}` : nonUserDp} alt="" style={{ width: "45px", height: "45px", borderRadius: "50%" }} /></Link>
                         <Button variant="" onClick={handleShowProfile} className="p-0 d-block d-md-none">
-                            <img src="https://social-media-noko.vercel.app/images/profile-1.jpg" alt="" style={{ width: "45px", height: "45px", borderRadius: "50%" }} />
+                            <img src={currentUser ? `${BASE_URL}/upload/${currentUser.image}` : {nonUserDp}} alt="" style={{ width: "45px", height: "45px", borderRadius: "50%" }} />
                         </Button>
                         <Offcanvas show={showProfile} onHide={handleCloseProfile} placement='end' style={{ backgroundColor: "#f0eef6" }}>
                             <Offcanvas.Header closeButton>
@@ -32,11 +40,11 @@ function Nav() {
                                     <a className="navbar-brand fw-bold" style={{ fontSize: "25px" }}>WebGram</a>
                                 </Offcanvas.Title>
                             </Offcanvas.Header>
-                            <Offcanvas.Body>
-                                <div className='' style={{ position: "fixed", zIndex: "1", width: "72%" }}>
+                            <Offcanvas.Body className='w-100 d-flex justify-content-center'>
+                                <div  style={{ position: "fixed", zIndex: "1" }}>
                                     <div style={{ backgroundColor: "#fff", borderRadius: "10px" }} className='p-3 mb-2'>
                                         <div className='d-flex align-items-center mb-3'>
-                                            <img src="https://social-media-noko.vercel.app/images/profile-1.jpg" alt="" style={{ width: "80px", height: "80px", borderRadius: "50%" }} />
+                                            <img src={currentUser ? `${BASE_URL}/upload/${currentUser.image}` : "https://social-media-noko.vercel.app/images/profile-1.jpg"} alt="" style={{ width: "80px", height: "80px", borderRadius: "50%" }} />
                                             <div className='ms-3 d-flex align-items-center flex-column w-100'>
                                                 <h5 className='mb-3'>Name </h5>
                                                 <div className='d-flex justify-content-evenly w-100'>
@@ -109,7 +117,19 @@ function Nav() {
                                             <h5>Followers List</h5>
                                         </div>
                                     </Link>
-                                    <div className='px-3 py-3 lists' style={{ borderBottom: "1px solid #b3a6e480", color:"#fff", backgroundColor:"#be0808"}}>
+                                    <Link to={'/savedposts'} style={{ color: "#000", textDecoration: "none" }}>
+                                        <div className='px-3 py-3 lists d-flex justify-content-between' style={{ borderBottom: "1px solid #b3a6e480" }}>
+                                            <h5>Saved Posts</h5>
+                                            <h5>0</h5>
+                                        </div>
+                                    </Link>
+                                    <Link to={'/likedposts'} style={{ color: "#000", textDecoration: "none" }}>
+                                        <div className='px-3 py-3 lists d-flex justify-content-between' style={{ borderBottom: "1px solid #b3a6e480" }}>
+                                            <h5>Liked Posts</h5>
+                                            <h5>0</h5>
+                                        </div>
+                                    </Link>
+                                    <div className='px-3 py-3 lists' style={{ borderBottom: "1px solid #b3a6e480", color: "#fff", backgroundColor: "#be0808" }}>
                                         <h5>Log Out</h5>
                                     </div>
                                 </div>

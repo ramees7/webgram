@@ -8,22 +8,28 @@ import Register from './components/Register';
 import Login from './components/Login';
 import FollowUsersList from './pages/FollowUsersList';
 import AllUsers from './pages/AllUsers';
-
+import SavedPosts from './pages/SavedPosts';
+import LikedPosts from './pages/LikedPosts';
+import UserView from './pages/UserView';
 function App() {
+
   return (
     <div className="App" >
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/register' element={<Register/>}/>
-        <Route path='/login' element={<Login/> }/>
-        <Route path='/myposts' element={<MyPosts/> }/>
-        <Route path='/addposts' element={<AddMyPosts/> }/>
-        <Route path='/editprofile' element={<EditProfilePage/> }/>
-        <Route path='/followerslist' element={<FollowUsersList/> }/>
-        <Route path='/allusers' element={<AllUsers/> }/>
+        <Route path='/' element={<Home />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/myposts' element={<MyPosts />} />
+        <Route path='/addposts' element={<AddMyPosts />} />
+        <Route path='/editprofile' element={<EditProfilePage />} />
+        <Route path='/followerslist' element={<FollowUsersList />} />
+        <Route path='/allusers' element={<AllUsers />} />
+        <Route path='/savedposts' element={<SavedPosts />} />
+        <Route path='/likedposts' element={<LikedPosts />} />
+        <Route path='/userView/:username' element={<UserView />} />
 
 
-        <Route path='/*' element={<Home  />} />
+        <Route path='/*' element={<Home />} />
       </Routes>
     </div>
   )

@@ -1,6 +1,7 @@
-.All-h5{
+.All-h5 {
     font-size: clamp(1.0625rem, 0.9792rem + 0.3333vw, 1.25rem);
 }
-.All-h6{
+
+.All-h6 {
     font-size: clamp(0.9375rem, 0.8542rem + 0.3333vw, 1.125rem);
 }
