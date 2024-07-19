@@ -170,7 +170,7 @@ function LikedPosts() {
       <Nav />
       <div style={{ backgroundColor: "#f0eef6" }}>
         <div className='container-lg py-5 mt-5'>
-          <Row>
+          <Row style={{ paddingBottom: "70px" }}>
             <Col md={3}>
               <Sidebar />
             </Col>

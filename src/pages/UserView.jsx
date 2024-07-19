@@ -6,10 +6,10 @@ import './Home.css'
 import SidebarRight from '../components/SidebarRight'
 import { Link, useLocation } from 'react-router-dom'
 import { BASE_URL } from '../Services/baseUrl'
-import { addLikeToPostAllApi, addSavedPostInAllPostApi, addSavedPostUserApi, addUserLikedPostAllApi, getAllPostsApi, getCurrentUserApi, removeLikeToPostAllApi, removeSavedPostInAllPostApi, removeSavedPostUserApi, removeUserLikedPostAllApi, getAllUserApi, getAllStoriesApi } from '../Services/allApis'
+import { addLikeToPostAllApi, addSavedPostInAllPostApi, addSavedPostUserApi, addUserLikedPostAllApi, getAllPostsApi, getCurrentUserApi, removeLikeToPostAllApi, removeSavedPostInAllPostApi, removeSavedPostUserApi, removeUserLikedPostAllApi, getAllUserApi, getAllStoriesApi, unFollowersApi, unFollowingApi, addToFollowersApi, addToFollowingApi } from '../Services/allApis'
 import { message } from 'antd'
 import CommentBox from '../components/CommentBox'
-import { commentResponseContext, likedPostsCountContext, savedPostsCountContext } from '../Context/ContextShares'
+import { commentResponseContext, followCountContext, likedPostsCountContext, savedPostsCountContext } from '../Context/ContextShares'
 import StoryViewDP from '../components/StoryViewDP'
 
 
@@ -30,6 +30,8 @@ function UserView() {
     const { savedpostsCount, setSavedPostsCount } = useContext(savedPostsCountContext)
     const { commentResponse, setCommentResponse } = useContext(commentResponseContext)
     const [allStories, setAllStories] = useState('')
+    const { followCount, setFollowCount } = useContext(followCountContext)
+
 
     useEffect(() => {
         setActiveUrl(location.pathname.slice(10))
@@ -48,7 +50,7 @@ function UserView() {
             setUserDetail(res.data.filter(item => item.username === activeUrl))
         }
     }
-    console.log(userDetail, "kkkkkkkkkkkkkkkkkkkk");
+    console.log(userDetail, "userdetail");
 
 
 
@@ -82,6 +84,7 @@ function UserView() {
         }
     }
 
+    console.log(user, "userrrrrr");
     console.log(userDetail[0], "okkkkkkkkkkkkkkkkkk");
     const handleGetAllPosts = async () => {
         const res = await getAllPostsApi()
@@ -200,6 +203,56 @@ function UserView() {
         }
     }
 
+ 
+    const handleFollowing = async (item) => {
+        console.log(item, "fiste");
+        if (user) {
+            const alreadyFollowed = item.followers.filter(item => item.userId === user._id)
+            if (alreadyFollowed.length == 0) {
+                const updatedFollowingUser = {
+                    userId: item._id
+                };
+                console.log(updatedFollowingUser);
+                const res = await addToFollowingApi(updatedFollowingUser, reqHeader)
+                if (res.status === 200) {
+                    console.log(res, "following")
+                    const result = await addToFollowersApi(item._id, reqHeader)
+                    if (result.status === 200) {
+                        console.log(result)
+                        message.success(`Followed ${item.username}`)
+                        handleGetAllUsers()
+                        setFollowCount(result)
+                    }
+                    else {
+                        console.log(result);
+                    }
+                }
+                else {
+                    console.log(res);
+                }
+            }
+            else {
+                const res = await unFollowingApi(item._id, reqHeader)
+                if (res.status === 200) {
+                    console.log(res);
+                    const res2 = await unFollowersApi(item._id, reqHeader)
+                    if (res2.status === 200) {
+                        console.log(res2)
+                        message.success(`Unfollowed ${item.username}`)
+                        handleGetAllUsers()
+                        setFollowCount(res2)
+                    }
+                    else {
+                        console.log(res2);
+                    }
+                }
+            }
+        }
+        else {
+            message.warning("Please Login First")
+        }
+    }
+
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -217,12 +270,12 @@ function UserView() {
                                 <div>
                                     <Row className='g-0 d-flex align-items-center px-lg-5 pb-4' style={{ borderBottom: '1px solid #b3a6e480' }}>
                                         <Col xs={4} className='text-center'>
-                                        {
-                                            userDetail[0]?.story?.length > 0 ?
-                                            <img src={`${BASE_URL}/upload/${userDetail[0]?.image}`} alt="" className='img-fluid' onClick={handleShow} style={{ width: "100px", borderRadius: "50%", height: "100px" }} />
-                                            :
-                                            <img src={`${BASE_URL}/upload/${userDetail[0]?.image}`} alt="" className='img-fluid' style={{ width: "100px", borderRadius: "50%", height: "100px" }} />
-                                        }
+                                            {
+                                                userDetail[0]?.story?.length > 0 ?
+                                                    <img src={`${BASE_URL}/upload/${userDetail[0]?.image}`} alt="" className='img-fluid' onClick={handleShow} style={{ width: "100px", borderRadius: "50%", height: "100px" }} />
+                                                    :
+                                                    <img src={`${BASE_URL}/upload/${userDetail[0]?.image}`} alt="" className='img-fluid' style={{ width: "100px", borderRadius: "50%", height: "100px" }} />
+                                            }
                                         </Col>
                                         <Col xs={8} className='pe-md-0 pe-sm-5 pe-lg-5'>
                                             {
@@ -272,6 +325,22 @@ function UserView() {
                                                             </Carousel>
 
                                                         </Modal>
+                                                        {
+                                                            user ?
+                                                                userDetail[0] &&
+                                                                    user.following.length > 0 && user.following.some(items => items.userId === userDetail[0]._id) ?
+                                                                        <div className='text-center mt-2'>
+                                                                            <button style={{ border: "none", backgroundColor: "#6b4ce6", borderRadius: "15px", color: "#fff" }} className='py-2 px-4 w-50' onClick={()=>handleFollowing(userDetail[0])}>UnFollow</button>
+
+                                                                        </div>
+                                                                        :
+                                                                        <div className='text-center mt-2'>
+                                                                            <button style={{ border: "none", backgroundColor: "#6b4ce6", borderRadius: "15px", color: "#fff" }} className='py-2 px-4 w-50'  onClick={()=>handleFollowing(userDetail[0])}>Follow</button>
+
+                                                                        </div>
+                                                                    : ""
+                                                        }
+
                                                     </>
                                                     :
                                                     <h6 style={{ color: "red" }}>Something Went Wrong</h6>

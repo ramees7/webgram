@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@paypal/react-paypal-js": "^8.5.0",
     "@react-oauth/google": "^0.12.1",
     "@testing-library/jest-dom": "^5.17.0",
@@ -11,12 +12,15 @@
     "antd": "^5.17.2",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
+    "firebase": "^10.12.2",
     "formik": "^2.4.6",
+    "framer-motion": "^11.3.2",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.23.0",
     "react-scripts": "5.0.1",
+    "socket.io-client": "^4.7.5",
     "web-vitals": "^2.1.4",
     "yup": "^1.4.0"
   },

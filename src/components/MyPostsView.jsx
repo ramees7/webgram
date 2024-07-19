@@ -7,6 +7,7 @@ import { BASE_URL } from '../Services/baseUrl'
 import { message } from 'antd'
 import CommentBox from './CommentBox'
 import { commentResponseContext, likedPostsCountContext, myPostsCountContext, savedPostsCountContext } from '../Context/ContextShares'
+import noPostsImg from '../Assets/no posts.png'
 
 
 function MyPostsView({ addpostcomp }) {
@@ -51,14 +52,36 @@ function MyPostsView({ addpostcomp }) {
     }
 
     const handlePostDelete = async (item) => {
+        const likeToPostAllData = {
+            likedUserId: currentUser._id
+        }
+        const userLikedData = {
+            postId: item._id
+        }
         const res = await deletePostApi(item._id, reqHeader)
         if (res.status == 200) {
             console.log(res)
             const res2 = await deletePostInUserApi(item._id, reqHeader)
             if (res2.status == 200) {
-                message.success("Post Deleted")
-                console.log(res2)
-                handleMyPosts()
+                console.log(res2,"res2")
+                const res3=await removeLikeToPostAllApi(likeToPostAllData,item._id, reqHeader)
+                if(res3.status===200){
+                    console.log(res3,"res3")
+                    const res4=await removeUserLikedPostAllApi(userLikedData, currentUser._id, reqHeader)
+                    if(res4.status===200){
+                        console.log(res4,"res4")
+                        const res5=await removeSavedPostInAllPostApi(item._id, reqHeader)
+                        if(res5.status===200){
+                            console.log(res5,"res5")
+                            const res6=await removeSavedPostUserApi(item._id,reqHeader)
+                            if(res6.status===200){
+                                console.log(res6,"res6")
+                                message.success("Post Deleted")
+                                handleMyPosts()
+                            }
+                        }
+                    }
+                }
             }
         }
         else {
@@ -193,7 +216,7 @@ function MyPostsView({ addpostcomp }) {
                                     ))
                                     :
                                     <div className='d-flex justify-content-center align-items-center flex-column' style={{ minHeight: "438px" }}>
-                                        <img src="https://cdn-icons-png.freepik.com/512/1361/1361708.png" alt="" className='img-fluid my-3' style={{ width: "200px", height: "200px" }} />
+                                        <img src={noPostsImg} alt="" className='img-fluid my-3' style={{ width: "200px", height: "200px" }} />
                                         <h4 className='fw-bold'>No Post Yet</h4>
                                     </div>
                             }
@@ -265,7 +288,7 @@ function MyPostsView({ addpostcomp }) {
                                 ))
                                 :
                                 <div className='d-flex justify-content-center align-items-center flex-column' style={{ minHeight: "438px" }}>
-                                    <img src="https://cdn-icons-png.freepik.com/512/1361/1361708.png" alt="" className='img-fluid my-3' style={{ width: "200px", height: "200px" }} />
+                                    <img src={noPostsImg} alt="" className='img-fluid my-3' style={{ width: "200px", height: "200px" }} />
                                     <h4 className='fw-bold'>No Post Yet</h4>
                                 </div>
                         }

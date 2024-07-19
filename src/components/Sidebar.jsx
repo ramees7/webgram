@@ -46,7 +46,7 @@ function Sidebar() {
   }, [token,likedpostsCount,savedpostsCount,mypostsCount])
 
 
-
+// console.log(likedpostsCount,"countttt");
 
   const handleGetCurrentUser = async () => {
     const result = await getCurrentUserApi(reqHeader)

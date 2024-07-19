@@ -11,6 +11,8 @@ import AllUsers from './pages/AllUsers';
 import SavedPosts from './pages/SavedPosts';
 import LikedPosts from './pages/LikedPosts';
 import UserView from './pages/UserView';
+import A from './components/A';
+
 function App() {
 
   return (
@@ -27,6 +29,7 @@ function App() {
         <Route path='/savedposts' element={<SavedPosts />} />
         <Route path='/likedposts' element={<LikedPosts />} />
         <Route path='/userView/:username' element={<UserView />} />
+        <Route path='/a' element={<A />} />
 
 
         <Route path='/*' element={<Home />} />

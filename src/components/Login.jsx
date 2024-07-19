@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import { GoogleLogin } from '@react-oauth/google';
 import { message } from 'antd';
 import { userLoginApi } from '../Services/allApis';
+
 
 function Login() {
     const [validated, setValidated] = useState(false)
@@ -13,8 +12,6 @@ function Login() {
     })
     const navigate = useNavigate()
 
-
-    const client_Id = "434816966372-3fffe1j9plo3gsi8jq6e670suaegvvnm.apps.googleusercontent.com"
     const handleSubmit = async (e) => {
         const form = e.currentTarget
         e.preventDefault()
@@ -25,16 +22,17 @@ function Login() {
         else {
             if (userData.phone.length == 10) {
                 if (userData.password.length >= 6 && userData.password.length <= 10) {
-                    console.log(userData, "userdata");
+                    // console.log(userData, "userdata");
+
                     const res = await userLoginApi(userData)
-                    console.log(res)
+                    // console.log(res, "login")
                     if (res.status === 200) {
-                        console.log(res, "res");
+                        // console.log(res, "res");
                         setValidated(true)
                         message.success(`Login Successfully`)
-                        sessionStorage.setItem("Existing User",JSON.stringify(res.data.existingUser))
-                        sessionStorage.setItem('Role',res.data.role)
-                        sessionStorage.setItem('Token',res.data.token)
+                        sessionStorage.setItem("Existing User", JSON.stringify(res.data.existingUser))
+                        sessionStorage.setItem('Role', res.data.role)
+                        sessionStorage.setItem('Token', res.data.token)
                         navigate('/')
                         setUserData({ phone: "", password: "", })
                     }
@@ -51,13 +49,6 @@ function Login() {
             }
         }
     }
-
-    // const responseMessage = (response) => {
-    //     console.log(response);
-    // };
-    // const errorMessage = (error) => {
-    //     console.log(error);
-    // };
     return (
         <div className='pt-5 ' style={{ backgroundColor: "#f0eef6" }}>
             <Row className='g-0'>
@@ -77,7 +68,7 @@ function Login() {
                             <Row className='g-0'>
                                 <Form.Group controlId="validationCustom02" className='my-2 mx-3'>
                                     <Form.Label>Phone Number</Form.Label>
-                                    <Form.Control type="number" placeholder="Phone Number"  style={{ height: "50px" }} required onChange={(e) => { setUserData({ ...userData, phone: e.target.value }) }} />
+                                    <Form.Control type="number" placeholder="Phone Number" style={{ height: "50px" }} required onChange={(e) => { setUserData({ ...userData, phone: e.target.value }) }} />
                                 </Form.Group>
                                 {/* <Form.Group as={Col} xs={6} md={12} lg={6} controlId="validationCustom02" className='my-2  ps-2'>
                                     <Form.Label>Email</Form.Label>
@@ -88,11 +79,12 @@ function Login() {
                                     <Form.Control type="password" placeholder="Password" style={{ height: "50px" }} required onChange={(e) => { setUserData({ ...userData, password: e.target.value }) }} />
                                 </Form.Group>
                             </Row>
+
                             <div className="d-flex justify-content-center w-100 my-3">
                                 <Button type="submit" style={{ border: "none", backgroundColor: "#6b4ce6", borderRadius: "15px", color: "#fff" }} className='py-2 px-3' >Login</Button>
                             </div>
+
                         </Form>
-                        {/* <GoogleLogin onSuccess={responseMessage} onError={errorMessage} /> */}
 
                     </div>
                 </Col>
