@@ -55,7 +55,7 @@ function EditProfile() {
                     formData.append('image', updateData.image ? updateData.image : currentUser.image)
                     formData.append('bio', updateData.bio ? updateData.bio : currentUser.bio)
                     const res = await updateProfileApi(formData, reqHeaderForm)
-                    if (res.status == 200) {
+                    if (res.status === 200) {
                         // console.log(res)
                         message.success("Profile Updated")
                         setValidated(true)
@@ -88,7 +88,7 @@ function EditProfile() {
                     }
                     // console.log(updatedProfileData, "pppppppppppppppppppppppp")
                     const res1 = await updateProfileApi(updatedProfileData, reqHeader)
-                    if (res1.status == 200) {
+                    if (res1.status === 200) {
                         // console.log(res1)
                         message.success("Profile Updated")
                         setValidated(true)

@@ -10,7 +10,6 @@ import { addLikeToPostAllApi, addSavedPostInAllPostApi, addSavedPostUserApi, add
 import { message } from 'antd'
 import CommentBox from '../components/CommentBox'
 import { commentResponseContext, followCountContext, likedPostsCountContext, savedPostsCountContext } from '../Context/ContextShares'
-import StoryViewDP from '../components/StoryViewDP'
 
 
 
@@ -19,18 +18,19 @@ function UserView() {
     const [show, setShow] = useState(false)
     const [activeUrl, setActiveUrl] = useState("")
     const location = useLocation()
-    const [search, setSearch] = useState("")
+    const search="";
+    // const [search, setSearch] = useState("")
     const [userDetail, setUserDetail] = useState("")
     const [user, setUser] = useState("")
     const [currentUser, setCurrentUser] = useState("")
-    const [alreadyLikedPost, setAllreadyLikedPost] = useState(false)
+    // const [alreadyLikedPost, setAllreadyLikedPost] = useState(false)
     const [userPosts, setUserPosts] = useState("")
     const [token, setToken] = useState("")
-    const { likedpostsCount, setLikedPostsCount } = useContext(likedPostsCountContext)
-    const { savedpostsCount, setSavedPostsCount } = useContext(savedPostsCountContext)
-    const { commentResponse, setCommentResponse } = useContext(commentResponseContext)
+    const {  setLikedPostsCount } = useContext(likedPostsCountContext)
+    const { setSavedPostsCount } = useContext(savedPostsCountContext)
+    const { commentResponse } = useContext(commentResponseContext)
     const [allStories, setAllStories] = useState('')
-    const { followCount, setFollowCount } = useContext(followCountContext)
+    const {  setFollowCount } = useContext(followCountContext)
 
 
     useEffect(() => {
@@ -121,15 +121,15 @@ function UserView() {
                 postId: item._id
             }
             const alreadyLiked = item.likes.filter(item => item.likedUserId === currentUser._id)
-            if (alreadyLiked.length == 0) {
+            if (alreadyLiked.length === 0) {
                 const res = await addLikeToPostAllApi(likeToPostAllData, item._id, reqHeader)
-                if (res.status == 200) {
+                if (res.status === 200) {
                     console.log(res, "res")
                     const res1 = await addUserLikedPostAllApi(userLikedData, currentUser._id, reqHeader)
                     if (res1.status === 200) {
                         console.log(res1, "res1");
                         message.success("liked")
-                        setAllreadyLikedPost(true)
+                        // setAllreadyLikedPost(true)
                         handleGetAllPosts()
                     }
                     else {
@@ -142,13 +142,13 @@ function UserView() {
             }
             else {
                 const res = await removeLikeToPostAllApi(likeToPostAllData, item._id, reqHeader)
-                if (res.status == 200) {
+                if (res.status === 200) {
                     console.log(res, "res")
                     const res1 = await removeUserLikedPostAllApi(userLikedData, currentUser._id, reqHeader)
                     if (res1.status === 200) {
                         console.log(res1, "res1")
                         message.success("removed")
-                        setAllreadyLikedPost(false)
+                        // setAllreadyLikedPost(false)
                         handleGetAllPosts()
                     }
                     else {
@@ -208,7 +208,7 @@ function UserView() {
         console.log(item, "fiste");
         if (user) {
             const alreadyFollowed = item.followers.filter(item => item.userId === user._id)
-            if (alreadyFollowed.length == 0) {
+            if (alreadyFollowed.length === 0) {
                 const updatedFollowingUser = {
                     userId: item._id
                 };

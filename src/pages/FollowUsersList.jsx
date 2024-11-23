@@ -4,7 +4,7 @@ import { Col, Row, Tab, Tabs } from 'react-bootstrap'
 import Sidebar from '../components/Sidebar'
 import './Home.css'
 import SidebarRight from '../components/SidebarRight'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { addToFollowersApi, addToFollowingApi, getAllUserApi, getCurrentUserApi, unFollowersApi, unFollowingApi } from '../Services/allApis'
 import { BASE_URL } from '../Services/baseUrl'
 import { message } from 'antd'
@@ -17,7 +17,7 @@ function FollowUsersList() {
     const [token, setToken] = useState("")
     const [allUsers, setAllUsers] = useState("")
     const [currentUser, setCurrentUser] = useState("")
-    const { followCount, setFollowCount } = useContext(followCountContext)
+    const { setFollowCount } = useContext(followCountContext)
     const [search, setSearch] = useState("")
 
     // const location=useLocation()

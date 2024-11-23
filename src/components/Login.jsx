@@ -22,7 +22,7 @@ function Login() {
       e.stopPropagation();
       message.warning("Enter Valid Details");
     } else {
-      if (userData.phone.length == 10) {
+      if (userData.phone.length === 10) {
         if (userData.password.length >= 6 && userData.password.length <= 10) {
           const res = await userLoginApi(userData);
           if (res.status === 200) {

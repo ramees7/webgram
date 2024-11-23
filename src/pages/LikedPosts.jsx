@@ -19,13 +19,13 @@ function LikedPosts() {
   const [currentUser, setCurrentUser] = useState("")
   const [token, setToken] = useState("")
   const [allPosts, setAllPosts] = useState("")
-  const [alreadyLikedPost, setAllreadyLikedPost] = useState(false)
-  const { likedpostsCount, setLikedPostsCount } = useContext(likedPostsCountContext)
-  const { savedpostsCount, setSavedPostsCount } = useContext(savedPostsCountContext)
-  const { commentResponse, setCommentResponse } = useContext(commentResponseContext)
-  const [search, setSearch] = useState("")
+  // const [alreadyLikedPost, setAllreadyLikedPost] = useState(false)
+  const { setLikedPostsCount } = useContext(likedPostsCountContext)
+  const { setSavedPostsCount } = useContext(savedPostsCountContext)
+  const { commentResponse } = useContext(commentResponseContext)
+  // const [search, setSearch] = useState("")
   const [allUser, setAllUser] = useState("")
-
+  const search="";
   useEffect(() => {
     setToken(sessionStorage.getItem("Token"))
   }, [])
@@ -38,7 +38,7 @@ function LikedPosts() {
     if (token) {
       handleGetCurrentUser()
     }
-    console.log(currentUser, "cuuuuuuuuuuuuuuu")
+    // console.log(currentUser, "cuuuuuuuuuuuuuuu")
 
   }, [token, commentResponse])
 
@@ -82,15 +82,15 @@ function LikedPosts() {
         postId: item._id
       }
       const alreadyLiked = item.likes.filter(item => item.likedUserId === currentUser._id)
-      if (alreadyLiked.length == 0) {
+      if (alreadyLiked.length === 0) {
         const res = await addLikeToPostAllApi(likeToPostAllData, item._id, reqHeader)
-        if (res.status == 200) {
+        if (res.status === 200) {
           console.log(res, "res")
           const res1 = await addUserLikedPostAllApi(userLikedData, currentUser._id, reqHeader)
           if (res1.status === 200) {
             console.log(res1, "res1");
             message.success("liked")
-            setAllreadyLikedPost(true)
+            // setAllreadyLikedPost(true)
             handleGetCurrentUser()
           }
           else {
@@ -103,13 +103,13 @@ function LikedPosts() {
       }
       else {
         const res = await removeLikeToPostAllApi(likeToPostAllData, item._id, reqHeader)
-        if (res.status == 200) {
+        if (res.status === 200) {
           console.log(res, "res")
           const res1 = await removeUserLikedPostAllApi(userLikedData, currentUser._id, reqHeader)
           if (res1.status === 200) {
             console.log(res1, "res1")
             message.success("removed")
-            setAllreadyLikedPost(false)
+            // setAllreadyLikedPost(false)
             handleGetCurrentUser()
           }
           else {

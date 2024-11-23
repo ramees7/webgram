@@ -17,7 +17,7 @@ import addStoryPng from "../Assets/addstorypng.png";
 import { storyResponseContext } from "../Context/ContextShares";
 
 function Story() {
-  const [search, setSearch] = useState("");
+  const search = "";
   const [showAddStory, setShowAddStory] = useState(false);
   const [showViewCurrentUserStory, setShowViewCurrentUserStory] =
     useState(false);

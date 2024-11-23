@@ -6,13 +6,13 @@ import { getAllPostsApi, getCurrentUserApi } from '../Services/allApis'
 import { likedPostsCountContext, myPostsCountContext, savedPostsCountContext } from '../Context/ContextShares'
 
 function Sidebar() {
-  const [isLogout, setIsLogout] = useState(false)
+  // const [isLogout, setIsLogout] = useState(false)
   const [currentUser, setCurrentUser] = useState("")
   const [token, setToken] = useState("")
-  const [allPosts, setAllPosts] = useState("")
-  const {likedpostsCount, setLikedPostsCount}=useContext(likedPostsCountContext)
-  const {savedpostsCount, setSavedPostsCount}=useContext(savedPostsCountContext)
-  const {mypostsCount, setMyPostsCount}=useContext(myPostsCountContext)
+  // const [allPosts, setAllPosts] = useState("")
+  const {likedpostsCount}=useContext(likedPostsCountContext)
+  const {savedpostsCount}=useContext(savedPostsCountContext)
+  const {mypostsCount}=useContext(myPostsCountContext)
 
   const navigate = useNavigate()
 
@@ -29,7 +29,7 @@ function Sidebar() {
     if (existingUser) {
       sessionStorage.clear()
       navigate("/login")
-      setIsLogout(true)
+      // setIsLogout(true)
       message.success("Logout Success")
     }
     else {
@@ -53,7 +53,7 @@ function Sidebar() {
       setCurrentUser(result.data)
       const result1 = await getAllPostsApi()
       if (result1.status === 200) {
-        setAllPosts(result1.data)
+        // setAllPosts(result1.data)
       }
     }
     else {

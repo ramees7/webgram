@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Nav from '../components/Nav'
-import { Col, Row, Tab, Tabs } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import Sidebar from '../components/Sidebar'
 import './Home.css'
 import SidebarRight from '../components/SidebarRight'
@@ -16,7 +16,7 @@ function AllUsers() {
     const [token, setToken] = useState("")
     const [currentUser, setCurrentUser] = useState("")
     const [currentUser1, setCurrentUser1] = useState("")
-    const { followCount, setFollowCount } = useContext(followCountContext)
+    const { setFollowCount } = useContext(followCountContext)
     const [search, setSearch] = useState("")
 
 
@@ -56,7 +56,7 @@ function AllUsers() {
         // console.log(item, "fiste");
         if (currentUser) {
             const alreadyFollowed = item.followers.filter(item => item.userId === currentUser1._id)
-            if (alreadyFollowed.length == 0) {
+            if (alreadyFollowed.length === 0) {
                 const updatedFollowingUser = {
                     userId: item._id
                 };

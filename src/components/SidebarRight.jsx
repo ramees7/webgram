@@ -10,8 +10,8 @@ function SidebarRight() {
     const [token, setToken] = useState("")
     const [followers, setFollowers] = useState([])
     const [followings, setFollowings] = useState([])
-    const {followCount,setFollowCount}=useContext(followCountContext)
-    const {storyResponse, setStoryResponse}=useContext(storyResponseContext)
+    const {followCount}=useContext(followCountContext)
+    const {storyResponse}=useContext(storyResponseContext)
 
 
     useEffect(() => {

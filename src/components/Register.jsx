@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { userOtpVerifyApi, userRegisterApi } from "../Services/allApis";
 import { message } from "antd";
 
 function Register() {
-  const [validated, setValidated] = useState(false);
+  // const [validated, setValidated] = useState(false);
   const [userData, setUserData] = useState({
     name: "",
     username: "",
@@ -14,9 +14,10 @@ function Register() {
     password: "",
     confirmpassword: "",
   });
+  const validated = false;
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
-  const [isGotOtp, setIsGotOtp] = useState(false);
+  // const [isGotOtp, setIsGotOtp] = useState(false);
 
   const handleGetOtp = async (e) => {
     e.preventDefault();
@@ -38,7 +39,7 @@ function Register() {
         if (userData.password === userData.confirmpassword) {
           const res = await userRegisterApi(userData); // Adjust API call
           if (res.status === 200) {
-            setIsGotOtp(true); // Move to OTP input screen
+            // setIsGotOtp(true); // Move to OTP input screen
             message.success("OTP sent to your email.");
             setUserData({
               name: "",
@@ -78,7 +79,10 @@ function Register() {
   };
 
   return (
-    <div className="pt-5 " style={{ backgroundColor: "#f0eef6" , minHeight:"100vh"}}>
+    <div
+      className="pt-5 "
+      style={{ backgroundColor: "#f0eef6", minHeight: "100vh" }}
+    >
       <Row className="g-0">
         <Col md={6} className="mb-5  d-block d-md-none">
           <div

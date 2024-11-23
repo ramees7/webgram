@@ -11,7 +11,6 @@ import AllUsers from "./pages/AllUsers";
 import SavedPosts from "./pages/SavedPosts";
 import LikedPosts from "./pages/LikedPosts";
 import UserView from "./pages/UserView";
-import Aa from "./components/Aa";
 import ForgetPass from "./pages/ForgetPass";
 
 function App() {
@@ -30,7 +29,6 @@ function App() {
         <Route path="/savedposts" element={<SavedPosts />} />
         <Route path="/likedposts" element={<LikedPosts />} />
         <Route path="/userView/:username" element={<UserView />} />
-        <Route path="/aa" element={<Aa />} />
 
         <Route path="/*" element={<Home />} />
       </Routes>
