@@ -7,8 +7,6 @@ import { likedPostsCountContext, myPostsCountContext, savedPostsCountContext } f
 
 function Sidebar() {
   const [isLogout, setIsLogout] = useState(false)
-  const [likedPosts, setLikedPosts] = useState("")
-  const [savedPosts, setSavedPosts] = useState("")
   const [currentUser, setCurrentUser] = useState("")
   const [token, setToken] = useState("")
   const [allPosts, setAllPosts] = useState("")
@@ -51,7 +49,7 @@ function Sidebar() {
   const handleGetCurrentUser = async () => {
     const result = await getCurrentUserApi(reqHeader)
     if (result.status === 200) {
-      console.log(result, "resultttttttt")
+      // console.log(result, "resultttttttt")
       setCurrentUser(result.data)
       const result1 = await getAllPostsApi()
       if (result1.status === 200) {
@@ -59,7 +57,7 @@ function Sidebar() {
       }
     }
     else {
-      console.log(result);
+      // console.log(result);
     }
   }
 

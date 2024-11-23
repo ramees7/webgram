@@ -40,7 +40,7 @@ function CommentBox({ item }) {
     const handleChangeToReply = (commentId) => {
         setReplyBtn(true)
         setReplyCommentId(commentId)
-        console.log(commentId, "pokloklo");
+        // console.log(commentId, "pokloklo");
     }
     const handleChangeToComment = () => {
         setReplyBtn(false)
@@ -49,20 +49,20 @@ function CommentBox({ item }) {
 
     const handleAddComment = async () => {
         if (currentUser) {
-            console.log(commentData, "1");
+            // console.log(commentData, "1");
             if (!commentData.comment || !commentData.username) {
                 message.warning("Please Enter Comment")
             }
             else {
-                console.log(commentData, "2")
+                // console.log(commentData, "2")
                 const res = await addCommentToPostApi(commentData, item._id, reqHeader)
                 if (res.status === 200) {
-                    console.log(res)
+                    // console.log(res)
                     message.success("Comment Added")
                     setCommentResponse(res)
                 }
                 else {
-                    console.log(res)
+                    // console.log(res)
                     message.error("Something Went Wrong")
                 }
             }
@@ -70,22 +70,22 @@ function CommentBox({ item }) {
     }
 
     const handleAdCommentReply = async () => {
-        console.log(replyCommentId, "poiuyt")
+        // console.log(replyCommentId, "poiuyt")
         if (currentUser) {
-            console.log(commentReplyData, "1");
+            // console.log(commentReplyData, "1");
             if (!commentReplyData.reply || !commentReplyData.username) {
                 message.warning("Please Enter Reply")
             }
             else {
-                console.log(commentReplyData, "2")
+                // console.log(commentReplyData, "2")
                 const res = await addCommentReplyToPostApi(commentReplyData, item._id, replyCommentId, reqHeader)
                 if (res.status === 200) {
-                    console.log(res)
+                    // console.log(res)
                     message.success("Replyed the Comment")
                     setCommentResponse(res)
                 }
                 else {
-                    console.log(res)
+                    // console.log(res)
                     message.error("Something Went Wrong")
                 }
             }
@@ -96,12 +96,12 @@ function CommentBox({ item }) {
         if (currentUser) {
             const res = await deleteCommentToPostApi(item._id, items.commentId, reqHeader)
             if (res.status === 200) {
-                console.log(res)
+                // console.log(res)
                 message.success("Comment Deleted")
                 setCommentResponse(res)
             }
             else {
-                console.log(res)
+                // console.log(res)
                 message.error("Something Went Wrong")
             }
         }
@@ -111,12 +111,12 @@ function CommentBox({ item }) {
         if (currentUser) {
             const res = await removeCommentReplyToPostApi(item._id, items.commentId, reqHeader)
             if (res.status === 200) {
-                console.log(res)
+                // console.log(res)
                 message.success("Comment Replay Deleted")
                 setCommentResponse(res)
             }
             else {
-                console.log(res)
+                // console.log(res)
                 message.error("Something Went Wrong")
             }
         }

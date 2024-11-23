@@ -4,9 +4,20 @@ import { commonApi } from "./commonApi";
 export const userRegisterApi = async (data) => {
     return await commonApi("POST", `${BASE_URL}/registeruser`, data, '')
 }
+export const userOtpVerifyApi = async (data) => {
+    return await commonApi("POST", `${BASE_URL}/registerotp`, data, '')
+}
 
 export const userLoginApi = async (data) => {
     return await commonApi("POST", `${BASE_URL}/loginuser`, data, '')
+}
+
+export const forgetPasswordEmailApi = async (data) => {
+    return await commonApi("POST", `${BASE_URL}/forgetPassword`, data, '')
+}
+
+export const verifyAndResetPasswordApi = async (data) => {
+    return await commonApi("POST", `${BASE_URL}/verifyOtpAndResetPassword`, data, '')
 }
 
 export const getCurrentUserApi = async (headers) => {

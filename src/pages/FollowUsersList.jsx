@@ -37,7 +37,7 @@ function FollowUsersList() {
         handleGetFollowers()
         handleGetAllUsers()
         const h = followers.length > 0 && allUsers.length > 0 && allUsers.filter(items => followers.some(itemss => itemss.userId === items._id))
-        console.log(h, "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+        // console.log(h, "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
 
     }, [token, search])
 
@@ -53,7 +53,7 @@ function FollowUsersList() {
             setCurrentUser(res.data)
             setFollowers(res.data.followers)
             setFollowings(res.data.following)
-            console.log(res, "res");
+            // console.log(res, "res");
         }
     }
     // console.log(followings, "follo");

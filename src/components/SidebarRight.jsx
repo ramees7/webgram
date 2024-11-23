@@ -2,9 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import './All.css'
 import { Link } from 'react-router-dom'
 import { getCurrentUserApi } from '../Services/allApis'
-import { BASE_URL } from '../Services/baseUrl'
 import { followCountContext, storyResponseContext } from '../Context/ContextShares'
-import nonUserDp from '../Assets/profile-non-user.jpg'
 import StoryViewDP from './StoryViewDP'
 
 function SidebarRight() {

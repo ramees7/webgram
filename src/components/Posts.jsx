@@ -24,7 +24,7 @@ function Posts() {
 
     useEffect(() => {
         setToken(sessionStorage.getItem("Token"))
-        console.log(token)
+        // console.log(token)
         setCurrentUser(JSON.parse(sessionStorage.getItem("Existing User")))
     }, [token])
 
@@ -40,7 +40,7 @@ function Posts() {
     const handleGetUser = async () => {
         const result = await getAllUserApi(search)
         if (result.status === 200) {
-            console.log(result, "l");
+            // console.log(result, "l");
             setAllUser(result.data)
         }
 
@@ -48,10 +48,10 @@ function Posts() {
         const res = await getCurrentUserApi(reqHeader)
         if (res.status === 200) {
             setUser(res.data)
-            console.log(res, "op")
+            // console.log(res, "op")
         }
         else {
-            console.log(res);
+            // console.log(res);
         }
 
     }
@@ -61,18 +61,18 @@ function Posts() {
         const res = await getAllPostsApi()
         if (res.status === 200) {
             setUserPosts(res.data)
-            console.log(res, "res")
+            // console.log(res, "res")
             setSavedPostsCount(res)
             setLikedPostsCount(res)
         }
     }
-    console.log(userPosts, "userposts");
+    // console.log(userPosts, "userposts");
 
 
     const handleAddLikeToPost = async (item) => {
         console.log(item, "itemmmmmmmmmmm");
         if (currentUser) {
-            console.log(currentUser, "userrrr")
+            // console.log(currentUser, "userrrr")
             const likeToPostAllData = {
                 likedUserId: currentUser._id
             }
@@ -83,39 +83,39 @@ function Posts() {
             if (alreadyLiked.length == 0) {
                 const res = await addLikeToPostAllApi(likeToPostAllData, item._id, reqHeader)
                 if (res.status == 200) {
-                    console.log(res, "res")
+                    // console.log(res, "res")
                     const res1 = await addUserLikedPostAllApi(userLikedData, currentUser._id, reqHeader)
                     if (res1.status === 200) {
-                        console.log(res1, "res1");
+                        // console.log(res1, "res1");
                         message.success("liked")
                         setAllreadyLikedPost(true)
                         handleGetAllPosts()
                     }
                     else {
-                        console.log(res1, "res1");
+                        // console.log(res1, "res1");
                     }
                 }
                 else {
-                    console.log(res)
+                    // console.log(res)
                 }
             }
             else {
                 const res = await removeLikeToPostAllApi(likeToPostAllData, item._id, reqHeader)
                 if (res.status == 200) {
-                    console.log(res, "res")
+                    // console.log(res, "res")
                     const res1 = await removeUserLikedPostAllApi(userLikedData, currentUser._id, reqHeader)
                     if (res1.status === 200) {
-                        console.log(res1, "res1")
+                        // console.log(res1, "res1")
                         message.success("removed")
                         setAllreadyLikedPost(false)
                         handleGetAllPosts()
                     }
                     else {
-                        console.log(res1, "res1");
+                        // console.log(res1, "res1");
                     }
                 }
                 else {
-                    console.log(res)
+                    // console.log(res)
                 }
             }
         }
@@ -127,38 +127,38 @@ function Posts() {
     const handleAddToSavedPost = async (id) => {
         const res = await addSavedPostInAllPostApi(id, reqHeader)
         if (res.status === 200) {
-            console.log(res)
+            // console.log(res)
             const res1 = await addSavedPostUserApi(id, reqHeader)
             if (res1.status === 200) {
-                console.log(res1)
+                // console.log(res1)
                 message.success("Saved Post")
                 handleGetAllPosts()
             }
             else {
-                console.log(res1)
+                // console.log(res1)
             }
         }
         else {
-            console.log(res)
+            // console.log(res)
         }
     }
 
     const handleRemoveToSavedPost = async (id) => {
         const res = await removeSavedPostInAllPostApi(id, reqHeader)
         if (res.status === 200) {
-            console.log(res)
+            // console.log(res)
             const res1 = await removeSavedPostUserApi(id, reqHeader)
             if (res1.status === 200) {
-                console.log(res1)
+                // console.log(res1)
                 message.success("Removed From Saved Post")
                 handleGetAllPosts()
             }
             else {
-                console.log(res1)
+                // console.log(res1)
             }
         }
         else {
-            console.log(res)
+            // console.log(res)
         }
     }
 

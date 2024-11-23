@@ -42,44 +42,33 @@ function EditProfile() {
         // console.log(updateData);
         event.preventDefault()
         if (currentUser) {
-            console.log(form.checkValidity() === false);
+            // console.log(form.checkValidity() === false);
             if (form.checkValidity() === false) {
                 event.stopPropagation()
                 message.warning("Enter valid Data")
             }
             else {
                 if (updateData.image) {
-                    console.log("============================");
+                    // console.log("============================");
                     const formData = new FormData()
                     formData.append('name', updateData.name ? updateData.name : currentUser.name)
                     formData.append('username', updateData.username ? updateData.username : currentUser.username)
                     formData.append('image', updateData.image ? updateData.image : currentUser.image)
                     formData.append('bio', updateData.bio ? updateData.bio : currentUser.bio)
-                    // formData.append('phone',currentUser.phone)
-                    // formData.append('password',currentUser.password)
-                    // formData.append('confirmpassword',currentUser.confirmpassword)
-                    // formData.append('email',currentUser.email)
-                    // formData.append('followers',currentUser.followers)
-                    // formData.append('following',currentUser.following)
-                    // formData.append('posts',currentUser.posts)
-                    // formData.append('savedPosts',currentUser.savedPosts)
-                    // formData.append('likedPosts',currentUser.likedPosts)
-                    // formData.append('dateOfRegister',currentUser.dateOfRegister)
-                    // formData.append('story',currentUser.story)
                     const res = await updateProfileApi(formData, reqHeaderForm)
                     if (res.status == 200) {
-                        console.log(res)
+                        // console.log(res)
                         message.success("Profile Updated")
                         setValidated(true)
                         sessionStorage.clear()
                         navigate('/login')
                     }
                     else {
-                        console.log(res)
+                        // console.log(res)
                     }
                 }
                 else {
-                    console.log("!!!!!!!!!!!!!!");
+                    // console.log("!!!!!!!!!!!!!!");
                     const updatedProfileData = {
                         name: updateData.name ? updateData.name : currentUser.name,
                         username: updateData.username ? updateData.username : currentUser.username,
@@ -98,17 +87,17 @@ function EditProfile() {
                         // dateOfRegister:currentUser.dateOfRegister,
                         // story:currentUser.story
                     }
-                    console.log(updatedProfileData, "pppppppppppppppppppppppp")
+                    // console.log(updatedProfileData, "pppppppppppppppppppppppp")
                     const res1 = await updateProfileApi(updatedProfileData, reqHeader)
                     if (res1.status == 200) {
-                        console.log(res1)
+                        // console.log(res1)
                         message.success("Profile Updated")
                         setValidated(true)
                         sessionStorage.clear()
                         navigate('/login')
                     }
                     else {
-                        console.log(res1)
+                        // console.log(res1)
                     }
                 }
             }

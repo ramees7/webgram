@@ -43,7 +43,7 @@ function AddPosts() {
         if (user) {
             const form = event.currentTarget
             event.preventDefault()
-            console.log(user, "userrrrrrrrrrrrrrrrrrrrrrrrrr");
+            // console.log(user, "userrrrrrrrrrrrrrrrrrrrrrrrrr");
             if (form.checkValidity() === false) {
                 event.stopPropagation()
                 message.warning("Add Valid Data")
@@ -54,25 +54,25 @@ function AddPosts() {
                 formData.append('dateOfPosted', postData.dateOfPosted)
                 formData.append('image', postData.image)
                 formData.append('username', user.username)
-                console.log(formData)
+                // console.log(formData)
 
                 const result = await addToPostApi(formData, reqHeaderForm)
                 if (result.status == 200) {
                     setValidated(true);
-                    console.log(result)
+                    // console.log(result)
                     const res = await addToPostUserApi(reqHeader)
                     if (res.status == 200) {
-                        console.log(res, "addpost")
+                        // console.log(res, "addpost")
                         message.success("Post Added")
                         navigate('/myposts')
                         setMyPostsCount(res)
                     }
                     else {
-                        console.log(res)
+                        // console.log(res)
                     }
                 }
                 else {
-                    console.log("err");
+                    // console.log("err");
                 }
 
             }
@@ -81,8 +81,6 @@ function AddPosts() {
             message.warning("Please Login First")
         }
     }
-
-
 
 
 

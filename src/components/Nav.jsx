@@ -32,7 +32,7 @@ function Nav() {
                         <Link to={'/register'}><button style={{ border: "none", backgroundColor: "#6b4ce6", borderRadius: "15px", color: "#fff" }} className='py-2 px-4 mx-2'>Create</button></Link>
                         <Link to={'/editprofile'} className='d-none d-md-block'><img src={currentUser ? `${BASE_URL}/upload/${currentUser.image}` : nonUserDp} alt="" style={{ width: "45px", height: "45px", borderRadius: "50%" }} /></Link>
                         <Button variant="" onClick={handleShowProfile} className="p-0 d-block d-md-none">
-                            <img src={currentUser ? `${BASE_URL}/upload/${currentUser.image}` : {nonUserDp}} alt="" style={{ width: "45px", height: "45px", borderRadius: "50%" }} />
+                            <img src={currentUser ? `${BASE_URL}/upload/${currentUser.image}` : nonUserDp} alt="" style={{ width: "45px", height: "45px", borderRadius: "50%" }} />
                         </Button>
                         <Offcanvas show={showProfile} onHide={handleCloseProfile} placement='end' style={{ backgroundColor: "#f0eef6" }}>
                             <Offcanvas.Header closeButton>

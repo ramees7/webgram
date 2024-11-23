@@ -29,11 +29,11 @@ function StoryViewDP(item) {
     const handleGetAllStories = async () => {
         const res = await getAllStoriesApi()
         if (res.status === 200) {
-            console.log(res, "stories")
+            // console.log(res, "stories")
             setAllStories(res.data)
         }
         else {
-            console.log(res)
+            // console.log(res)
         }
     }
     // console.log(allStories.length>0&& allStories.filter(stories => stories.userId === item.item._id),"o");
@@ -41,10 +41,10 @@ function StoryViewDP(item) {
     const handleDeleteStory = async (items) => {
         const res = await deleteStoryInAllStoriesApi(items._id, reqHeader)
         if (res.status === 200) {
-            console.log(res)
+            // console.log(res)
             const result = await deleteStoryInUserApi(items._id, reqHeader)
             if (result.status === 200) {
-                console.log(result)
+                // console.log(result)
                 message.success("Story Deleted")
                 handleGetAllStories()
                 setStoryResponse(res)

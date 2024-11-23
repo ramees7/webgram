@@ -22,14 +22,14 @@ function AllUsers() {
 
     useEffect(() => {
         setToken(sessionStorage.getItem("Token"))
-        console.log(token)
+        // console.log(token)
         setCurrentUser1(JSON.parse(sessionStorage.getItem("Existing User")))
-        console.log(currentUser1, "cu")
+        // console.log(currentUser1, "cu")
     }, [])
 
     useEffect(() => {
         handleGetFollowers()
-        console.log(currentUser1, "iiiiiiiiiiiiiii");
+        // console.log(currentUser1, "iiiiiiiiiiiiiii");
     }, [currentUser1, search]);
 
 
@@ -48,50 +48,50 @@ function AllUsers() {
             else {
                 setUsers(res.data)
             }
-            console.log(res);
+            // console.log(res);
         }
     }
 
     const handleFollowing = async (item) => {
-        console.log(item, "fiste");
+        // console.log(item, "fiste");
         if (currentUser) {
             const alreadyFollowed = item.followers.filter(item => item.userId === currentUser1._id)
             if (alreadyFollowed.length == 0) {
                 const updatedFollowingUser = {
                     userId: item._id
                 };
-                console.log(updatedFollowingUser);
+                // console.log(updatedFollowingUser);
                 const res = await addToFollowingApi(updatedFollowingUser, reqHeader)
                 if (res.status === 200) {
-                    console.log(res, "following")
+                    // console.log(res, "following")
                     const result = await addToFollowersApi(item._id, reqHeader)
                     if (result.status === 200) {
-                        console.log(result)
+                        // console.log(result)
                         message.success(`Followed ${item.username}`)
                         handleGetFollowers()
                         setFollowCount(result)
                     }
                     else {
-                        console.log(result);
+                        // console.log(result);
                     }
                 }
                 else {
-                    console.log(res);
+                    // console.log(res);
                 }
             }
             else {
                 const res = await unFollowingApi(item._id, reqHeader)
                 if (res.status === 200) {
-                    console.log(res);
+                    // console.log(res);
                     const res2 = await unFollowersApi(item._id, reqHeader)
                     if (res2.status === 200) {
-                        console.log(res2)
+                        // console.log(res2)
                         message.success(`Unfollowed ${item.username}`)
                         handleGetFollowers()
                         setFollowCount(res2)
                     }
                     else {
-                        console.log(res2);
+                        // console.log(res2);
                     }
                 }
             }
@@ -102,7 +102,7 @@ function AllUsers() {
     }
 
     useEffect(() => {
-        console.log(users, "lpl");
+        // console.log(users, "lpl");
         if (users && currentUser1) {
             const h = users?.length > 0 && users.map(item => item.followers.length > 0 && item.followers.some(items => items.userId === currentUser1._id))
             console.log(h, "jhhhhhhhhhhhhhhhhhhho");

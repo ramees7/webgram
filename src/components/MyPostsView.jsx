@@ -23,7 +23,7 @@ function MyPostsView({ addpostcomp }) {
 
     useEffect(() => {
         setToken(sessionStorage.getItem("Token"))
-        console.log(token)
+        // console.log(token)
     }, [])
 
     useEffect(() => {
@@ -42,7 +42,7 @@ function MyPostsView({ addpostcomp }) {
             if (res1.status === 200) {
                 setAllPosts(res1.data)
                 setMyPosts(res1.data.filter(item => item.userId === res.data._id))
-                console.log(myPosts, "myyyyyyyyyyyyy")
+                // console.log(myPosts, "myyyyyyyyyyyyy")
                 setLikedPostsCount(res1)
                 setSavedPostsCount(res1)
                 setMyPostsCount(res1)
@@ -60,22 +60,22 @@ function MyPostsView({ addpostcomp }) {
         }
         const res = await deletePostApi(item._id, reqHeader)
         if (res.status == 200) {
-            console.log(res)
+            // console.log(res)
             const res2 = await deletePostInUserApi(item._id, reqHeader)
             if (res2.status == 200) {
-                console.log(res2,"res2")
+                // console.log(res2,"res2")
                 const res3=await removeLikeToPostAllApi(likeToPostAllData,item._id, reqHeader)
                 if(res3.status===200){
-                    console.log(res3,"res3")
+                    // console.log(res3,"res3")
                     const res4=await removeUserLikedPostAllApi(userLikedData, currentUser._id, reqHeader)
                     if(res4.status===200){
-                        console.log(res4,"res4")
+                        // console.log(res4,"res4")
                         const res5=await removeSavedPostInAllPostApi(item._id, reqHeader)
                         if(res5.status===200){
-                            console.log(res5,"res5")
+                            // console.log(res5,"res5")
                             const res6=await removeSavedPostUserApi(item._id,reqHeader)
                             if(res6.status===200){
-                                console.log(res6,"res6")
+                                // console.log(res6,"res6")
                                 message.success("Post Deleted")
                                 handleMyPosts()
                             }
@@ -85,16 +85,16 @@ function MyPostsView({ addpostcomp }) {
             }
         }
         else {
-            console.log(res)
+            // console.log(res)
             message.error("Something Went Wrong")
         }
     }
 
     // ------------------------------------------------
     const handleAddLikeToPost = async (item) => {
-        console.log(item, "itemmmmmmmmmmm");
+        // console.log(item, "itemmmmmmmmmmm");
         if (currentUser) {
-            console.log(currentUser, "userrrr")
+            // console.log(currentUser, "userrrr")
             const likeToPostAllData = {
                 likedUserId: currentUser._id
             }
@@ -105,39 +105,39 @@ function MyPostsView({ addpostcomp }) {
             if (alreadyLiked.length == 0) {
                 const res = await addLikeToPostAllApi(likeToPostAllData, item._id, reqHeader)
                 if (res.status == 200) {
-                    console.log(res, "res")
+                    // console.log(res, "res")
                     const res1 = await addUserLikedPostAllApi(userLikedData, currentUser._id, reqHeader)
                     if (res1.status === 200) {
-                        console.log(res1, "res1");
+                        // console.log(res1, "res1");
                         message.success("liked")
                         setAllreadyLikedPost(true)
                         handleMyPosts()
                     }
                     else {
-                        console.log(res1, "res1");
+                        // console.log(res1, "res1");
                     }
                 }
                 else {
-                    console.log(res)
+                    // console.log(res)
                 }
             }
             else {
                 const res = await removeLikeToPostAllApi(likeToPostAllData, item._id, reqHeader)
                 if (res.status == 200) {
-                    console.log(res, "res")
+                    // console.log(res, "res")
                     const res1 = await removeUserLikedPostAllApi(userLikedData, currentUser._id, reqHeader)
                     if (res1.status === 200) {
-                        console.log(res1, "res1")
+                        // console.log(res1, "res1")
                         message.success("removed")
                         setAllreadyLikedPost(false)
                         handleMyPosts()
                     }
                     else {
-                        console.log(res1, "res1");
+                        // console.log(res1, "res1");
                     }
                 }
                 else {
-                    console.log(res)
+                    // console.log(res)
                 }
             }
         }
@@ -149,38 +149,38 @@ function MyPostsView({ addpostcomp }) {
     const handleAddToSavedPost = async (id) => {
         const res = await addSavedPostInAllPostApi(id, reqHeader)
         if (res.status === 200) {
-            console.log(res)
+            // console.log(res)
             const res1 = await addSavedPostUserApi(id, reqHeader)
             if (res1.status === 200) {
-                console.log(res1)
+                // console.log(res1)
                 message.success("Saved Post")
                 handleMyPosts()
             }
             else {
-                console.log(res1)
+                // console.log(res1)
             }
         }
         else {
-            console.log(res)
+            // console.log(res)
         }
     }
 
     const handleRemoveToSavedPost = async (id) => {
         const res = await removeSavedPostInAllPostApi(id, reqHeader)
         if (res.status === 200) {
-            console.log(res)
+            // console.log(res)
             const res1 = await removeSavedPostUserApi(id, reqHeader)
             if (res1.status === 200) {
-                console.log(res1)
+                // console.log(res1)
                 message.success("Removed From Saved Post")
                 handleMyPosts()
             }
             else {
-                console.log(res1)
+                // console.log(res1)
             }
         }
         else {
-            console.log(res)
+            // console.log(res)
         }
     }
     // ------------------------------------------------
