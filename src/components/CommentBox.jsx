@@ -32,16 +32,32 @@ function CommentBox({ item }) {
     setCurrentUser(JSON.parse(sessionStorage.getItem("Existing User")));
     setToken(sessionStorage.getItem("Token"));
   }, []);
+  
+  // --------------------------------------------.
+
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     setCommentData({ ...commentData, username: currentUser.username });
+  //     setCommentReplyData({
+  //       ...commentReplyData,
+  //       username: currentUser.username,
+  //     });
+  //   }
+  // }, [currentUser]);
 
   useEffect(() => {
     if (currentUser) {
-      setCommentData({ ...commentData, username: currentUser.username });
-      setCommentReplyData({
-        ...commentReplyData,
+      setCommentData((prevData) => ({
+        ...prevData,
         username: currentUser.username,
-      });
+      }));
+      setCommentReplyData((prevReplyData) => ({
+        ...prevReplyData,
+        username: currentUser.username,
+      }));
     }
   }, [currentUser]);
+  // --------------------------------------------.
 
   const reqHeader = {
     "Content-Type": "application/json",
