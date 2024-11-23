@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Row, Button, Form } from 'react-bootstrap'
-import editProfileIconImg from '../Assets/edit-profile-icon.png'
 import { BASE_URL } from '../Services/baseUrl'
 import { message } from 'antd'
 import { updateProfileApi } from '../Services/allApis'
