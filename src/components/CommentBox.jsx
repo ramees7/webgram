@@ -73,7 +73,8 @@ function CommentBox({ item }) {
     setReplyBtn(false);
   };
 
-  const handleAddComment = async () => {
+  const handleAddComment = async (e) => {
+    e.preventDefault()
     if (currentUser) {
       // console.log(commentData, "1");
       if (!commentData.comment || !commentData.username) {
@@ -85,6 +86,7 @@ function CommentBox({ item }) {
           // console.log(res)
           message.success("Comment Added");
           setCommentResponse(res);
+          setCommentData(commentData.comment==="")
         } else {
           // console.log(res)
           message.error("Something Went Wrong");
@@ -297,6 +299,7 @@ function CommentBox({ item }) {
                             reply: e.target.value,
                           });
                         }}
+                        value={commentReplyData.reply}
                       />
                       <button
                         className="border-0 p-2 bg-white"
@@ -322,6 +325,7 @@ function CommentBox({ item }) {
                           comment: e.target.value,
                         });
                       }}
+                      value={commentData.comment}
                     />
                     <button
                       className="border-0 p-2 bg-white"
